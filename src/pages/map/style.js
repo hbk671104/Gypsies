@@ -1,6 +1,5 @@
 export default {
     container : {
-        flex : 1,
-        backgroundColor : 'cyan'
+        flex : 1
     }
 }
