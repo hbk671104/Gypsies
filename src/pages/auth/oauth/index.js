@@ -19,6 +19,7 @@ export default class OAuth extends Component {
 
     _onNavStateChange = (props) => {
         if (props.url) {
+            // FIXME user queryString and put it in urlHelper
             const tokenParam = props.url.split('#')[1]
             if (tokenParam) {
                 const accessToken = tokenParam.split('=')[1]
