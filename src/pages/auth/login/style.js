@@ -1,6 +1,7 @@
 export default {
     container : {
         flex : 1,
-        backgroundColor : 'lime'
+        justifyContent : 'center',
+        alignItems : 'center'
     }
 }

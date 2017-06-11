@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 const iconButton = (props) => (
@@ -9,5 +9,10 @@ const iconButton = (props) => (
         {...props}
     />
 )
+
+iconButton.propTypes = {
+    name : PropTypes.string.isRequired,
+    onPress : PropTypes.func.isRequired
+}
 
 export default iconButton
