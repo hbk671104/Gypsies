@@ -5,6 +5,7 @@ import {
 } from 'react-native'
 import IconButton from 'components/iconButton'
 import Icon from 'components/icon'
+import { selfMedia } from 'api/media'
 import styles from './style'
 
 export default class Main extends Component {
@@ -18,6 +19,18 @@ export default class Main extends Component {
             />
         )
     })
+
+    componentDidMount() {
+        const { params } = this.props.navigation.state
+        fetch(`${selfMedia}${params.accessToken}`)
+        .then(response => response.json())
+        .then(responseJson => {
+            console.log(responseJson);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
 
     render() {
         const { params } = this.props.navigation.state
