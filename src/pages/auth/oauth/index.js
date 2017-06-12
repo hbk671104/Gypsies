@@ -5,6 +5,7 @@ import {
     WebView
 } from 'react-native'
 import { oAuth } from 'api/auth'
+import { getUrlParams } from 'utils/urlHelper'
 import styles from './style'
 
 export default class OAuth extends Component {
@@ -12,21 +13,12 @@ export default class OAuth extends Component {
         title : 'Authentication'
     }
 
-    constructor(props) {
-        super(props)
-        this.accessToken = ''
-    }
-
     _onNavStateChange = (props) => {
-        if (props.url) {
-            // FIXME user queryString and put it in urlHelper
-            const tokenParam = props.url.split('#')[1]
-            if (tokenParam) {
-                const accessToken = tokenParam.split('=')[1]
-                if (!this.accessToken) {
-                    this.accessToken = accessToken
-                    console.log(this.accessToken);
-                }
+        if (props.loading) {
+            const params = getUrlParams(props.url)
+            if (params && params.access_token) {
+                const accessToken = params.access_token
+                this.props.navigation.navigate('Main', {accessToken})
             }
         }
     }

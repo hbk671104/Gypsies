@@ -3,7 +3,7 @@ export default {
         flex : 1,
         backgroundColor : 'orange'
     },
-    icon : {
+    iconButton : {
         marginRight : 0
     }
 }
