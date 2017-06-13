@@ -1,7 +1,6 @@
 export default {
     container : {
-        flex : 1,
-        backgroundColor : 'orange'
+        flex : 1
     },
     iconButton : {
         marginRight : 0

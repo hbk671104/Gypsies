@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import {
     View,
-    Text
+    Text,
+    Image,
+    FlatList
 } from 'react-native'
 import IconButton from 'components/iconButton'
 import Icon from 'components/icon'
@@ -20,12 +22,20 @@ export default class Main extends Component {
         )
     })
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            listData : []
+        }
+    }
+
     componentDidMount() {
         const { params } = this.props.navigation.state
+        console.log(params.accessToken);
         fetch(`${selfMedia}${params.accessToken}`)
         .then(response => response.json())
         .then(responseJson => {
-            console.log(responseJson);
+            this.setState({listData : responseJson.data})
         })
         .catch(err => {
             console.log(err);
@@ -36,7 +46,16 @@ export default class Main extends Component {
         const { params } = this.props.navigation.state
         return (
             <View style={styles.container}>
-                <Text>{params.accessToken}</Text>
+                <FlatList
+                    data={this.state.listData}
+                    renderItem={({item}) => (
+                        <Image style={{height : 100, width : 100}}
+                            source={{uri: item.images.low_resolution.url}}
+                        />
+                    )}
+                    numColumns={3}
+                    keyExtractor={item => item.id}
+                />
             </View>
         )
     }
