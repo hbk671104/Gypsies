@@ -53,7 +53,9 @@ export default class Main extends Component {
                             source={{uri: item.images.low_resolution.url}}
                         />
                     )}
+                    showsVerticalScrollIndicator={false}
                     numColumns={3}
+                    columnWrapperStyle={{}}
                     keyExtractor={item => item.id}
                 />
             </View>
