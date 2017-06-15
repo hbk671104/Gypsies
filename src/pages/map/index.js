@@ -24,13 +24,22 @@ export default class Map extends Component {
                 showsUserLocation
                 showsMyLocationButton
                 showsCompass
+                showsScale
                 initialRegion={{
-                  latitude: 37.78825,
-                  longitude: -122.4324,
-                  latitudeDelta: 0.0922,
-                  longitudeDelta: 0.0421,
-                }}
-            />
+                    latitude: 37.78825,
+                    longitude: -122.4324,
+                    latitudeDelta: 0.0922,
+                    longitudeDelta: 0.0421,
+                }}>
+                <MapView.Marker
+                    coordinate={{
+                        latitude: 37.78825,
+                        longitude: -122.4324
+                    }}
+                    title='哈哈哈哈'
+                    description='啦啦啦啦啦'
+                />
+            </MapView>
         )
     }
 }
