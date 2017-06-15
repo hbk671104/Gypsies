@@ -13,8 +13,8 @@ export default class OAuth extends Component {
         title : 'Authentication'
     }
 
-    _onNavStateChange = (props) => {
-        if (props.loading) {
+    onNavStateChange = (props) => {
+        if (!props.loading) {
             const params = getUrlParams(props.url)
             if (params && params.access_token) {
                 const accessToken = params.access_token
@@ -28,8 +28,7 @@ export default class OAuth extends Component {
             <WebView style={styles.container}
                 startInLoadingState
                 source={{uri : oAuth}}
-                onLoadEnd={this._onLoadEnd}
-                onNavigationStateChange={this._onNavStateChange}
+                onNavigationStateChange={this.onNavStateChange}
             />
         )
     }

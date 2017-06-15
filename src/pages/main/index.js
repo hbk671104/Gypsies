@@ -3,7 +3,8 @@ import {
     View,
     Text,
     Image,
-    FlatList
+    FlatList,
+    BackHandler
 } from 'react-native'
 import IconButton from 'components/iconButton'
 import Icon from 'components/icon'
@@ -31,6 +32,10 @@ export default class Main extends Component {
         this.numberOfColumns = 3
     }
 
+    componentWillMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)
+    }
+
     componentDidMount() {
         const { params } = this.props.navigation.state
         fetch(`${selfMedia}${params.accessToken}`)
@@ -41,6 +46,15 @@ export default class Main extends Component {
         .catch(err => {
             console.log(err);
         })
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress)
+    }
+
+    handleBackPress = () => {
+        // Disable nav back
+        return true
     }
 
     renderItem = ({ item }) => (
