@@ -25,13 +25,14 @@ export default class Main extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            listData : []
+            listData : [],
+            itemEdge : 0
         }
+        this.numberOfColumns = 3
     }
 
     componentDidMount() {
         const { params } = this.props.navigation.state
-        console.log(params.accessToken);
         fetch(`${selfMedia}${params.accessToken}`)
         .then(response => response.json())
         .then(responseJson => {
@@ -42,20 +43,29 @@ export default class Main extends Component {
         })
     }
 
+    renderItem = ({ item }) => (
+        <Image style={{height : this.state.itemEdge, width : this.state.itemEdge}}
+            source={{uri: item.images.low_resolution.url}}
+        />
+    )
+
+    renderHeader = () => (
+        <View style={{height : 100, backgroundColor : 'orange'}}/>
+    )
+
     render() {
         const { params } = this.props.navigation.state
         return (
             <View style={styles.container}>
                 <FlatList
+                    onLayout={({ nativeEvent : { layout }}) => {
+                        this.setState({itemEdge : layout.width / this.numberOfColumns})
+                    }}
                     data={this.state.listData}
-                    renderItem={({item}) => (
-                        <Image style={{height : 100, width : 100}}
-                            source={{uri: item.images.low_resolution.url}}
-                        />
-                    )}
+                    renderItem={this.renderItem}
+                    ListHeaderComponent={this.renderHeader}
                     showsVerticalScrollIndicator={false}
-                    numColumns={3}
-                    columnWrapperStyle={{}}
+                    numColumns={this.numberOfColumns}
                     keyExtractor={item => item.id}
                 />
             </View>
