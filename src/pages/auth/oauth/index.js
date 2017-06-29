@@ -4,11 +4,12 @@ import {
     Text,
     WebView
 } from 'react-native'
+import { connect } from 'react-redux'
 import { oAuth } from 'api/auth'
 import { getUrlParams } from 'utils/urlHelper'
 import styles from './style'
 
-export default class OAuth extends Component {
+class OAuth extends Component {
     static navigationOptions = {
         title : 'Authentication'
     }
@@ -33,3 +34,13 @@ export default class OAuth extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    const auth = state.auth.toJS()
+    return {
+        loading : auth.loading,
+        access_token : auth.access_token
+    }
+}
+
+export default connect(mapStateToProps)(OAuth)
