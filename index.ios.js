@@ -7,4 +7,4 @@
 import { AppRegistry } from 'react-native'
 import Root from './src/root'
 
-AppRegistry.registerComponent('Gypsies', Root)
+AppRegistry.registerComponent('Gypsies', () => Root)

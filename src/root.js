@@ -1,6 +1,15 @@
 import React from 'react'
 import { Platform } from 'react-native'
+import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import logger from 'redux-logger'
+import thunk from 'redux-thunk';
 import { StackNavigator } from 'react-navigation'
+
+// Reducer
+import rootReducer from 'reducers'
+
+// Pages
 import Login from 'pages/auth/login'
 import OAuth from 'pages/auth/oauth'
 import Main from 'pages/main'
@@ -10,16 +19,20 @@ const root = () => {
     const Gypsies = StackNavigator({
         Login : {screen : Login},
         OAuth : {screen : OAuth},
-        Main : {
-            screen : Main,
-            path : 'main/:accessToken'
-        },
+        Main : {screen : Main},
         Map : {screen : Map}
     })
 
-    // on Android, the URI prefix typically contains a host in addition to scheme
-    const prefix = Platform.OS == 'android' ? 'gypsies://gypsies/' : 'gypsies://'
-    return () => <Gypsies uriPrefix={prefix} />
+    const store = createStore(
+        rootReducer,
+        applyMiddleware(thunk),
+        applyMiddleware(logger)
+    )
+    return (
+        <Provider store={store}>
+            <Gypsies />
+        </Provider>
+    )
 }
 
 export default root
