@@ -27,7 +27,6 @@ export const requestAccessToken = () => {
         fetch(oAuth)
         .then(res => {
             const params = getUrlParams(res.url)
-            console.log(params);
             if (params && params.access_token) {
                 // dispatch(requestAccessTokenSucceeded(params.access_token))
             } else {
