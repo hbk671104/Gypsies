@@ -3,16 +3,18 @@ import {
     View,
     Text
 } from 'react-native'
+import { connect } from 'react-redux'
+import { requestAccessToken } from 'actions/auth'
 import IconButton from 'components/iconButton'
 import styles from './style'
 
-export default class Login extends Component {
+class Login extends Component {
     static navigationOptions = {
         title : 'Welcome'
     }
 
     _startOAuth = () => {
-        this.props.navigation.navigate('OAuth')
+        this.props.dispatch(requestAccessToken())
     }
 
     render() {
@@ -23,3 +25,13 @@ export default class Login extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    const auth = state.auth.toJS()
+    return {
+        loading : auth.loading,
+        access_token : auth.access_token
+    }
+}
+
+export default connect(mapStateToProps)(Login)

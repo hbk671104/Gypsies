@@ -3,7 +3,7 @@ import * as AuthActionTypes from 'actiontypes/auth'
 
 const initialState = fromJS({
     loading : false,
-    access_token : ''
+    accessToken : ''
 })
 
 const auth = (state = initialState, action) => {
@@ -11,9 +11,9 @@ const auth = (state = initialState, action) => {
         case AuthActionTypes.REQUEST_ACCESS_TOKEN_START:
             return state.set('loading', true)
         case AuthActionTypes.REQUEST_ACCESS_TOKEN_SUCCEEDED:
-            return state.set('loading', false).set('access_token', action.data)
+            return state.set('loading', false).set('accessToken', action.data)
         case AuthActionTypes.REQUEST_ACCESS_TOKEN_FAILED:
-            return state.set('loading', false).set('access_token', '')
+            return state.set('loading', false)
         default:
             return state
     }
