@@ -1,10 +1,10 @@
 import * as AuthActionTypes from 'actiontypes/auth'
-import { oAuth } from 'api/auth'
 import { getUrlParams } from 'utils/urlHelper'
 
-export const requestAccessTokenStart = () => {
+export const requestingAccessToken = data => {
     return {
-        type: AuthActionTypes.REQUEST_ACCESS_TOKEN_START
+        type: AuthActionTypes.REQUESTING_ACCESS_TOKEN,
+        data
     }
 }
 
@@ -21,20 +21,13 @@ export const requestAccessTokenFailed = () => {
     }
 }
 
-export const requestAccessToken = () => {
-    return (dispatch) => {
-        // dispatch(requestAccessTokenStart())
-        fetch(oAuth)
-        .then(res => {
-            const params = getUrlParams(res.url)
-            if (params && params.access_token) {
-                // dispatch(requestAccessTokenSucceeded(params.access_token))
-            } else {
-                // dispatch(requestAccessTokenFailed())
-            }
-        })
-        .catch(e => {
-            // dispatch(requestAccessTokenFailed())
-        })
+export const extractAccessToken = url => {
+    return dispatch => {
+        const params = getUrlParams(url)
+        if (params && params.access_token) {
+            dispatch(requestAccessTokenSucceeded(params.access_token))
+        } else {
+            dispatch(requestAccessTokenFailed())
+        }
     }
 }

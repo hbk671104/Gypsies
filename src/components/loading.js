@@ -2,37 +2,40 @@ import React, { PropTypes } from 'react'
 import { View, Text, ActivityIndicator } from 'react-native'
 
 const loadingView = props => (
-    <View style={styles.container}>
-        <Text style={styles.text}>
-            {props.title}
-        </Text>
+    <View style={[styles.container, props.style]}>
         <ActivityIndicator
             style={styles.indicator}
             animating={true}
             size='large'
         />
+        <Text style={styles.text}>
+            {props.title}
+        </Text>
     </View>
 )
 
 loadingView.defaultProps = {
-    title : 'loading...'
+    title : 'loading...',
+    style : {}
 }
 
 loadingView.propTypes = {
-    title : PropTypes.string
+    title : PropTypes.string,
+    style : PropTypes.object
 }
 
 const styles = {
     container : {
         flex : 1,
         justifyContent : 'center',
-        alignItems : 'center'
+        alignItems : 'center',
+        backgroundColor : 'white'
     },
     text : {
         fontSize : 18
     },
     indicator : {
-        marginTop : 10
+        marginBottom : 10
     }
 }
 
