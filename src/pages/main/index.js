@@ -6,12 +6,13 @@ import {
     FlatList,
     BackHandler
 } from 'react-native'
+import { connect } from 'react-redux'
 import IconButton from 'components/iconButton'
 import Icon from 'components/icon'
 import { selfMedia } from 'api/media'
 import styles from './style'
 
-export default class Main extends Component {
+class Main extends Component {
     static navigationOptions = ({ navigation }) => ({
         title : 'Gypsies',
         headerLeft : null, // Disable back button
@@ -38,7 +39,7 @@ export default class Main extends Component {
 
     componentDidMount() {
         const { params } = this.props.navigation.state
-        fetch(`${selfMedia}${params.accessToken}`)
+        fetch(`${selfMedia}${this.props.access_token}`)
         .then(response => response.json())
         .then(responseJson => {
             this.setState({listData : responseJson.data})
@@ -86,3 +87,12 @@ export default class Main extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    const auth = state.auth.toJS()
+    return {
+        access_token : auth.access_token
+    }
+}
+
+export default connect(mapStateToProps)(Main)

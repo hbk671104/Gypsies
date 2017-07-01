@@ -14,11 +14,18 @@ class Login extends Component {
     static navigationOptions = {
         title : 'Welcome'
     }
-    
-    onNavStateChange = props => {
+
+    _handleAccessToken = async (url) => {
+        const res = await this.props.dispatch(AuthActions.extractAccessToken(url))
+        if (res) {
+            this.props.navigation.navigate('Main')
+        }
+    }
+
+    _onNavStateChange = props => {
         this.props.dispatch(AuthActions.requestingAccessToken(props.loading))
         if (!props.loading) {
-            this.props.dispatch(AuthActions.extractAccessToken(props.url))
+            this._handleAccessToken(props.url)
         }
     }
 
@@ -27,7 +34,7 @@ class Login extends Component {
             <View style={styles.container}>
                 <WebView style={styles.webview}
                     source={{uri : oAuth}}
-                    onNavigationStateChange={this.onNavStateChange}
+                    onNavigationStateChange={this._onNavStateChange}
                 />
                 {
                     this.props.loading &&

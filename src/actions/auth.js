@@ -23,13 +23,13 @@ export const requestAccessTokenFailed = () => {
 }
 
 export const extractAccessToken = url => {
-    return dispatch => {
+    return (dispatch) => {
         const params = getUrlParams(url)
         if (params && params.access_token) {
             dispatch(requestAccessTokenSucceeded(params.access_token))
-            dispatch(cacheAccessToken(params.access_token))
+            return dispatch(cacheAccessToken(params.access_token))
         } else {
-            dispatch(requestAccessTokenFailed())
+            return dispatch(requestAccessTokenFailed())
         }
     }
 }
@@ -47,15 +47,15 @@ export const cacheAccessTokenFailed = () => {
 }
 
 export const cacheAccessToken = token => {
-    return dispatch => {
-        AsyncStorage.setItem('access_token', token)
-        .then(() => {
+    return async (dispatch) => {
+        try {
+            await AsyncStorage.setItem('access_token', token)
             dispatch(cacheAccessTokenSucceeded())
-        })
-        .catch(e => {
+            return token
+        } catch (e) {
             if (e) {
-                dispatch(cacheAccessTokenFailed())
+                return dispatch(cacheAccessTokenFailed())
             }
-        })
+        }
     }
 }
