@@ -2,14 +2,12 @@ import React, { Component } from 'react'
 import { Platform } from 'react-native'
 import { Provider } from 'react-redux'
 import { StackNavigator } from 'react-navigation'
+import SplashScreen from 'react-native-splash-screen'
 
 // Pages
 import Login from 'pages/auth/login'
 import Main from 'pages/main'
 import Map from 'pages/map'
-
-// Component
-import LoadingView from 'components/loading'
 
 // Store
 import gypStore from 'store'
@@ -21,18 +19,16 @@ export default class Root extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            initialRouteName : 'Login',
-            loading : false
+            initialRouteName : 'Login'
         }
     }
 
     async componentDidMount() {
-        this.setState({loading : true})
         const res = await gypStore.dispatch(getAccessToken())
         if (res.type === getAccessTokenSucceeded().type) {
             this.setState({initialRouteName: 'Main'})
         }
-        this.setState({loading : false})
+        SplashScreen.hide()
     }
 
     _configNavigator = () => {
@@ -46,15 +42,11 @@ export default class Root extends Component {
     }
 
     render() {
-        if (this.state.loading) {
-            return <LoadingView />
-        } else {
-            const Gypsies = this._configNavigator()
-            return (
-                <Provider store={gypStore}>
-                    <Gypsies />
-                </Provider>
-            )
-        }
+        const Gypsies = this._configNavigator()
+        return (
+            <Provider store={gypStore}>
+                <Gypsies />
+            </Provider>
+        )
     }
 }
