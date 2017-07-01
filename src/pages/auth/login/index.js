@@ -17,7 +17,7 @@ class Login extends Component {
 
     _handleAccessToken = async (url) => {
         const res = await this.props.dispatch(AuthActions.extractAccessToken(url))
-        if (res) {
+        if (res.type === AuthActions.cacheAccessTokenSucceeded().type) {
             this.props.navigation.navigate('Main')
         }
     }

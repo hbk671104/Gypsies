@@ -50,11 +50,36 @@ export const cacheAccessToken = token => {
     return async (dispatch) => {
         try {
             await AsyncStorage.setItem('access_token', token)
-            dispatch(cacheAccessTokenSucceeded())
-            return token
+            return dispatch(cacheAccessTokenSucceeded())
         } catch (e) {
             if (e) {
                 return dispatch(cacheAccessTokenFailed())
+            }
+        }
+    }
+}
+
+export const getAccessTokenSucceeded = data => {
+    return {
+        type: AuthActionTypes.GET_ACCESS_TOKEN_SUCCEEDED,
+        data
+    }
+}
+
+export const getAccessTokenFailed = () => {
+    return {
+        type: AuthActionTypes.GET_ACCESS_TOKEN_FAILED
+    }
+}
+
+export const getAccessToken = () => {
+    return async (dispatch) => {
+        try {
+            const token = await AsyncStorage.getItem('access_token')
+            return dispatch(getAccessTokenSucceeded(token))
+        } catch (e) {
+            if (e) {
+                return dispatch(getAccessTokenFailed())
             }
         }
     }
