@@ -9,7 +9,7 @@ import {
 import { connect } from 'react-redux'
 import IconButton from 'components/iconButton'
 import Icon from 'components/icon'
-import { selfMedia } from 'api/media'
+import { requestUserMedia } from 'actions/user'
 import styles from './style'
 
 class Main extends Component {
@@ -38,15 +38,7 @@ class Main extends Component {
     }
 
     componentDidMount() {
-        const { params } = this.props.navigation.state
-        fetch(`${selfMedia}${this.props.access_token}`)
-        .then(response => response.json())
-        .then(responseJson => {
-            this.setState({listData : responseJson.data})
-        })
-        .catch(err => {
-            console.log(err);
-        })
+        this.props.dispatch(requestUserMedia())
     }
 
     componentWillUnmount() {
