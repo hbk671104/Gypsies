@@ -76,7 +76,11 @@ export const getAccessToken = () => {
     return async (dispatch) => {
         try {
             const token = await AsyncStorage.getItem('access_token')
-            return dispatch(getAccessTokenSucceeded(token))
+            if (token) {
+                return dispatch(getAccessTokenSucceeded(token))
+            } else {
+                return dispatch(getAccessTokenFailed())
+            }
         } catch (e) {
             if (e) {
                 return dispatch(getAccessTokenFailed())
