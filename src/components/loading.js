@@ -1,12 +1,15 @@
 import React, { PropTypes } from 'react'
-import { View, Text, ActivityIndicator } from 'react-native'
+import { View, Text } from 'react-native'
+import Spinner from 'react-native-spinkit'
 
 const loadingView = props => (
     <View style={[styles.container, props.style]}>
-        <ActivityIndicator
+        <Spinner
             style={styles.indicator}
-            animating={true}
-            size='large'
+            type='ThreeBounce'
+            color='#007AFF'
+            isVisible={true}
+            size={40}
         />
         <Text style={styles.text}>
             {props.title}
