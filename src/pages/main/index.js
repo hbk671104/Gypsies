@@ -27,7 +27,6 @@ class Main extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            listData : [],
             itemEdge : 0
         }
         this.numberOfColumns = 3
@@ -68,7 +67,7 @@ class Main extends Component {
                     onLayout={({ nativeEvent : { layout }}) => {
                         this.setState({itemEdge : layout.width / this.numberOfColumns})
                     }}
-                    data={this.state.listData}
+                    data={this.props.userRecent}
                     renderItem={this.renderItem}
                     ListHeaderComponent={this.renderHeader}
                     showsVerticalScrollIndicator={false}
@@ -81,9 +80,9 @@ class Main extends Component {
 }
 
 const mapStateToProps = state => {
-    const auth = state.auth.toJS()
+    const recent = state.user.recent
     return {
-        access_token : auth.access_token
+        userRecent : recent.data
     }
 }
 

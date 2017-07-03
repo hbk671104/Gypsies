@@ -52,9 +52,7 @@ export const cacheAccessToken = token => {
             await AsyncStorage.setItem('access_token', token)
             return dispatch(cacheAccessTokenSucceeded())
         } catch (e) {
-            if (e) {
-                return dispatch(cacheAccessTokenFailed())
-            }
+            return dispatch(cacheAccessTokenFailed())
         }
     }
 }
@@ -82,9 +80,7 @@ export const getAccessToken = () => {
                 return dispatch(getAccessTokenFailed())
             }
         } catch (e) {
-            if (e) {
-                return dispatch(getAccessTokenFailed())
-            }
+            return dispatch(getAccessTokenFailed())
         }
     }
 }
