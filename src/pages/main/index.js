@@ -9,6 +9,7 @@ import {
 import { connect } from 'react-redux'
 import IconButton from 'components/iconButton'
 import Icon from 'components/icon'
+import LoadingView from 'components/loading'
 import { requestUserMedia } from 'actions/user'
 import styles from './style'
 
@@ -63,17 +64,22 @@ class Main extends Component {
         const { params } = this.props.navigation.state
         return (
             <View style={styles.container}>
-                <FlatList
-                    onLayout={({ nativeEvent : { layout }}) => {
-                        this.setState({itemEdge : layout.width / this.numberOfColumns})
-                    }}
-                    data={this.props.userRecent}
-                    renderItem={this.renderItem}
-                    ListHeaderComponent={this.renderHeader}
-                    showsVerticalScrollIndicator={false}
-                    numColumns={this.numberOfColumns}
-                    keyExtractor={item => item.id}
-                />
+                {
+                    this.props.loading ?
+                    <LoadingView />
+                    :
+                    <FlatList
+                        onLayout={({ nativeEvent : { layout }}) => {
+                            this.setState({itemEdge : layout.width / this.numberOfColumns})
+                        }}
+                        data={this.props.userRecent}
+                        renderItem={this.renderItem}
+                        ListHeaderComponent={this.renderHeader}
+                        showsVerticalScrollIndicator={false}
+                        numColumns={this.numberOfColumns}
+                        keyExtractor={item => item.id}
+                    />
+                }
             </View>
         )
     }
@@ -82,6 +88,7 @@ class Main extends Component {
 const mapStateToProps = state => {
     const recent = state.user.recent
     return {
+        loading : recent.loading,
         userRecent : recent.data
     }
 }
