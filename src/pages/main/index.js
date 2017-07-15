@@ -72,7 +72,7 @@ class Main extends Component {
                         onLayout={({ nativeEvent : { layout }}) => {
                             this.setState({itemEdge : layout.width / this.numberOfColumns})
                         }}
-                        data={this.props.userRecent}
+                        data={this.props.recent}
                         renderItem={this.renderItem}
                         ListHeaderComponent={this.renderHeader}
                         showsVerticalScrollIndicator={false}
@@ -89,7 +89,7 @@ const mapStateToProps = state => {
     const recent = state.user.recent
     return {
         loading : recent.loading,
-        userRecent : recent.data
+        recent : recent.self ? recent.self.data : []
     }
 }
 

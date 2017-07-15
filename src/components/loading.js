@@ -11,14 +11,17 @@ const loadingView = props => (
             isVisible={true}
             size={40}
         />
-        <Text style={styles.text}>
-            {props.title}
-        </Text>
+        {
+            !!props.title &&
+            <Text style={styles.text}>
+                {props.title}
+            </Text>
+        }
     </View>
 )
 
 loadingView.defaultProps = {
-    title : 'loading...',
+    title : '',
     style : {}
 }
 
