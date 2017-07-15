@@ -1,10 +1,10 @@
 import queryString from 'query-string'
-import { clientId, redirectUrl } from 'utils/const'
+import { API_DOMAIN, CLIENT_ID, REDIRECT_URL } from 'react-native-dotenv'
 
-export const oAuth = `https://api.instagram.com/oauth/authorize/?${
+export const oAuth = `${API_DOMAIN}/oauth/authorize/?${
     queryString.stringify({
-        client_id : clientId,
-        redirect_uri : redirectUrl,
+        client_id : CLIENT_ID,
+        redirect_uri : REDIRECT_URL,
         response_type : 'token'
     })
 }`
