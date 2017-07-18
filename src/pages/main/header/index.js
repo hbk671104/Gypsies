@@ -19,7 +19,7 @@ export default class Header extends Component {
 
     render() {
         return (
-
+            <View style={{height : 100, backgroundColor : 'orange'}}/>
         )
     }
 }

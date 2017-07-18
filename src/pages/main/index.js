@@ -7,10 +7,14 @@ import {
     BackHandler
 } from 'react-native'
 import { connect } from 'react-redux'
+
 import IconButton from 'components/iconButton'
 import Icon from 'components/icon'
 import LoadingView from 'components/loading'
+
 import { requestUserMedia } from 'actions/user'
+
+import Header from './header'
 import styles from './style'
 
 class Main extends Component {
@@ -57,7 +61,7 @@ class Main extends Component {
     )
 
     renderHeader = () => (
-        <View style={{height : 100, backgroundColor : 'orange'}}/>
+        <Header />
     )
 
     render() {
