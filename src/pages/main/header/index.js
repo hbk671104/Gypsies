@@ -3,9 +3,12 @@ import {
     View,
     Text
 } from 'react-native'
+
+import { requestUserInfo } from 'actions/user'
+
 import styles from './style'
 
-export default class Header extends Component {
+class Header extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -14,7 +17,7 @@ export default class Header extends Component {
     }
 
     componentDidMount() {
-
+        this.props.dispatch(requestUserInfo())
     }
 
     render() {
@@ -23,3 +26,13 @@ export default class Header extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    const info = state.user.info
+    return {
+        loading : recent.loading,
+        info : info.self ? info.self.data : {}
+    }
+}
+
+export default connect(mapStateToProps)(Header)
