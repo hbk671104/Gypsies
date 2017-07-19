@@ -3,6 +3,7 @@ import {
     View,
     Text
 } from 'react-native'
+import { connect } from 'react-redux'
 
 import { requestUserInfo } from 'actions/user'
 
@@ -30,7 +31,7 @@ class Header extends Component {
 const mapStateToProps = state => {
     const info = state.user.info
     return {
-        loading : recent.loading,
+        loading : info.loading,
         info : info.self ? info.self.data : {}
     }
 }
