@@ -1,7 +1,8 @@
 export default {
     container : {
         overall : {
-            height : 200
+            height : 200,
+            justifyContent : 'center'
         },
         background : {
             position: 'absolute',
@@ -11,13 +12,14 @@ export default {
             right: 0
         },
         content : {
-            alignItems : 'center'
+            alignItems : 'center',
         },
         top : {
             alignItems : 'center'
         },
         bottom : {
-            flexDirection : 'row'
+            flexDirection : 'row',
+            alignItems : 'center'
         },
         chunk : {
             alignItems : 'center'
@@ -31,6 +33,21 @@ export default {
         }
     },
     text : {
-
+        title : {
+            fontSize : 15,
+            color : 'black',
+            fontWeight : 'bold',
+            backgroundColor : 'transparent'
+        },
+        bio : {
+            fontSize : 15,
+            color : 'black',
+            backgroundColor : 'transparent'
+        },
+        label : {
+            fontSize : 13,
+            color : 'dimgrey',
+            backgroundColor : 'transparent'
+        }
     }
 }

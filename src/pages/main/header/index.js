@@ -34,26 +34,23 @@ class Header extends Component {
         <View style={styles.container.content}>
             <View style={styles.container.top}>
                 <Image style={styles.image.avatar} source={{uri : info.profile_picture}} />
-                <View style={{flexDirection : 'row'}}>
-                    <Text>{info.username}</Text>
-                    {!!info.full_name && <Text>({info.full_name})</Text>}
-                </View>
-                <Text>{info.bio}</Text>
+                <Text style={styles.text.title}>{info.username}</Text>
+                <Text style={styles.text.bio}>{info.bio}</Text>
             </View>
             {
                 !!info.counts &&
                 <View style={styles.container.bottom}>
                     <View style={styles.container.chunk}>
-                        <Text>Posts</Text>
-                        <Text>{info.counts.media}</Text>
+                        <Text style={styles.text.title}>{info.counts.media}</Text>
+                        <Text style={styles.text.label}>posts</Text>
                     </View>
                     <View style={styles.container.chunk}>
-                        <Text>Followers</Text>
-                        <Text>{info.counts.followed_by}</Text>
+                        <Text style={styles.text.title}>{info.counts.followed_by}</Text>
+                        <Text style={styles.text.label}>followers</Text>
                     </View>
                     <View style={styles.container.chunk}>
-                        <Text>Following</Text>
-                        <Text>{info.counts.follows}</Text>
+                        <Text style={styles.text.title}>{info.counts.follows}</Text>
+                        <Text style={styles.text.label}>following</Text>
                     </View>
                 </View>
             }
@@ -62,7 +59,6 @@ class Header extends Component {
 
     render() {
         const { info } = this.props
-        console.log(info.counts);
         return (
             <View style={styles.container.overall}>
                 <Image
