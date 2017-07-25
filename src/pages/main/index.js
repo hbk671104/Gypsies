@@ -54,6 +54,10 @@ class Main extends Component {
         return true
     }
 
+    handlePostTap = () => {
+        this.mainFlatlist.scrollToIndex({index : 0})
+    }
+
     renderItem = ({ item }) => (
         <Image style={{height : this.state.itemEdge, width : this.state.itemEdge}}
             source={{uri: item.images.low_resolution.url}}
@@ -61,7 +65,7 @@ class Main extends Component {
     )
 
     renderHeader = () => (
-        <Header />
+        <Header onPostTap={this.handlePostTap} />
     )
 
     render() {
@@ -73,6 +77,7 @@ class Main extends Component {
                     <LoadingView />
                     :
                     <FlatList
+                        ref={ref => this.mainFlatlist = ref}
                         onLayout={({ nativeEvent : { layout }}) => {
                             this.setState({itemEdge : layout.width / this.numberOfColumns})
                         }}

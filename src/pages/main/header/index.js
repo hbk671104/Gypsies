@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import {
     View,
     Text,
     Image,
-    findNodeHandle
+    findNodeHandle,
+    TouchableOpacity
 } from 'react-native'
 import { BlurView, VibrancyView } from 'react-native-blur'
 import { connect } from 'react-redux'
@@ -13,6 +14,10 @@ import { requestUserInfo } from 'actions/user'
 import styles from './style'
 
 class Header extends Component {
+    static propTypes = {
+        onPostTap : PropTypes.func.isRequired
+    }
+
     constructor(props) {
         super(props)
         this.state = {
@@ -30,32 +35,35 @@ class Header extends Component {
         })
     }
 
-    renderContent = info => (
-        <View style={styles.container.content}>
-            <View style={styles.container.top}>
-                <Image style={styles.image.avatar} source={{uri : info.profile_picture}} />
-                <Text style={styles.text.title}>{info.username}</Text>
-                <Text style={styles.text.bio}>{info.bio}</Text>
-            </View>
-            {
-                !!info.counts &&
-                <View style={styles.container.bottom}>
-                    <View style={styles.container.chunk}>
-                        <Text style={styles.text.title}>{info.counts.media}</Text>
-                        <Text style={styles.text.label}>posts</Text>
-                    </View>
-                    <View style={styles.container.chunk}>
-                        <Text style={styles.text.title}>{info.counts.followed_by}</Text>
-                        <Text style={styles.text.label}>followers</Text>
-                    </View>
-                    <View style={styles.container.chunk}>
-                        <Text style={styles.text.title}>{info.counts.follows}</Text>
-                        <Text style={styles.text.label}>following</Text>
-                    </View>
+    renderContent = info => {
+        const { onPostTap } = this.props
+        return (
+            <View style={styles.container.content}>
+                <View style={styles.container.top}>
+                    <Image style={styles.image.avatar} source={{uri : info.profile_picture}} />
+                    <Text style={styles.text.title}>{info.username}</Text>
+                    <Text style={styles.text.bio}>{info.bio}</Text>
                 </View>
-            }
-        </View>
-    )
+                {
+                    !!info.counts &&
+                    <View style={styles.container.bottom}>
+                        <TouchableOpacity style={styles.container.chunk} onPress={() => onPostTap()}>
+                            <Text style={styles.text.title}>{info.counts.media}</Text>
+                            <Text style={styles.text.label}>posts</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.container.chunk}>
+                            <Text style={styles.text.title}>{info.counts.followed_by}</Text>
+                            <Text style={styles.text.label}>followers</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.container.chunk}>
+                            <Text style={styles.text.title}>{info.counts.follows}</Text>
+                            <Text style={styles.text.label}>following</Text>
+                        </TouchableOpacity>
+                    </View>
+                }
+            </View>
+        )
+    }
 
     render() {
         const { info } = this.props
