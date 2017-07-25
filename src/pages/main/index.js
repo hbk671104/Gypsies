@@ -10,7 +10,6 @@ import {
 import { connect } from 'react-redux'
 
 import IconButton from 'components/iconButton'
-import Icon from 'components/icon'
 import LoadingView from 'components/loading'
 
 import { requestUserMedia } from 'actions/user'
@@ -23,7 +22,7 @@ class Main extends Component {
         title : 'Gypsies',
         headerLeft : null, // Disable back button
         headerRight : (
-            <IconButton name='map'
+            <IconButton name='map-o'
                 iconStyle={styles.iconButton}
                 onPress={() => {navigation.navigate('Map')}}
             />

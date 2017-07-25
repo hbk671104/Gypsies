@@ -3,6 +3,6 @@ export default {
         flex : 1
     },
     iconButton : {
-        marginRight : 0
+        marginRight : 5
     }
 }

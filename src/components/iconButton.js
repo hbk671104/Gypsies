@@ -1,20 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 const iconButton = props => (
     <Icon.Button
         color={props.color}
         backgroundColor={props.backgroundColor}
         size={props.size}
+        underlayColor='transparent'
         {...props}
     />
 )
 
 iconButton.defaultProps = {
-    color : '#007AFF',
+    color : 'black',
     backgroundColor : 'transparent',
-    size : 30
+    size : 20
 }
 
 iconButton.propTypes = {
