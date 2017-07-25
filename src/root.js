@@ -39,7 +39,11 @@ export default class Root extends Component {
         },{
             initialRouteName : this.state.initialRouteName,
             navigationOptions : {
-                headerTintColor : 'black'
+                headerTintColor : 'black',
+                headerBackTitle : null,
+                headerTitleStyle : {
+                    fontWeight : '500'
+                }
             }
         })
     }
