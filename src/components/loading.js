@@ -8,7 +8,7 @@ const loadingView = props => (
         <Spinner
             style={styles.indicator}
             type='ThreeBounce'
-            color='#007AFF'
+            color='black'
             isVisible={true}
             size={40}
         />

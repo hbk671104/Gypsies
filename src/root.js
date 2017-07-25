@@ -37,7 +37,10 @@ export default class Root extends Component {
             Main : {screen : Main},
             Map : {screen : Map}
         },{
-            initialRouteName: this.state.initialRouteName
+            initialRouteName : this.state.initialRouteName,
+            navigationOptions : {
+                headerTintColor : 'black'
+            }
         })
     }
 
