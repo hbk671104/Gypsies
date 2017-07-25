@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Platform } from 'react-native'
 import { Provider } from 'react-redux'
 import SplashScreen from 'react-native-splash-screen'
 
