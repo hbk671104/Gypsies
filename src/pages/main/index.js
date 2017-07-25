@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import {
     View,
     Text,
@@ -40,7 +41,8 @@ class Main extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            itemEdge : 0
+            itemEdge : 0,
+            isRefresh : false
         }
     }
 
@@ -65,6 +67,12 @@ class Main extends Component {
         this.mainFlatlist.scrollToIndex({index : 0})
     }
 
+    handleRefresh = () => {
+        this.setState({isRefresh : true}, () => {
+            this.props.dispatch(requestUserMedia())
+        })
+    }
+
     renderItem = ({ item }) => (
         <Image style={{height : this.state.itemEdge, width : this.state.itemEdge}}
             source={{uri: item.images.low_resolution.url}}
@@ -80,7 +88,7 @@ class Main extends Component {
         return (
             <View style={styles.container}>
                 {
-                    this.props.loading ?
+                    this.props.loading && !this.state.isRefresh ?
                     <LoadingView />
                     :
                     <FlatList
@@ -91,6 +99,8 @@ class Main extends Component {
                         data={this.props.recent}
                         renderItem={this.renderItem}
                         ListHeaderComponent={this.renderHeader}
+                        onRefresh={this.handleRefresh}
+                        refreshing={this.props.loading}
                         showsVerticalScrollIndicator={false}
                         numColumns={numberOfColumns}
                         keyExtractor={item => item.id}
