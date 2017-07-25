@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import {
     View,
     Text,
@@ -29,12 +29,19 @@ class Main extends Component {
         )
     })
 
+    static defaultProps = {
+        numberOfColumns : 3
+    }
+
+    static propTypes = {
+        numberOfColumns : PropTypes.number
+    }
+
     constructor(props) {
         super(props)
         this.state = {
             itemEdge : 0
         }
-        this.numberOfColumns = 3
     }
 
     componentWillMount() {
@@ -69,7 +76,7 @@ class Main extends Component {
     )
 
     render() {
-        const { params } = this.props.navigation.state
+        const { numberOfColumns } = this.props
         return (
             <View style={styles.container}>
                 {
@@ -79,13 +86,13 @@ class Main extends Component {
                     <FlatList
                         ref={ref => this.mainFlatlist = ref}
                         onLayout={({ nativeEvent : { layout }}) => {
-                            this.setState({itemEdge : layout.width / this.numberOfColumns})
+                            this.setState({itemEdge : layout.width / numberOfColumns})
                         }}
                         data={this.props.recent}
                         renderItem={this.renderItem}
                         ListHeaderComponent={this.renderHeader}
                         showsVerticalScrollIndicator={false}
-                        numColumns={this.numberOfColumns}
+                        numColumns={numberOfColumns}
                         keyExtractor={item => item.id}
                     />
                 }
