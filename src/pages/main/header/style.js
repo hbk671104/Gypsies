@@ -19,10 +19,12 @@ export default {
         },
         bottom : {
             flexDirection : 'row',
-            alignItems : 'center'
+            alignItems : 'center',
+            marginTop  : 5
         },
         chunk : {
-            alignItems : 'center'
+            alignItems : 'center',
+            width : 60
         }
     },
     image : {
@@ -34,19 +36,21 @@ export default {
     },
     text : {
         title : {
-            fontSize : 15,
+            fontSize : 16,
             color : 'black',
-            fontWeight : 'bold',
-            backgroundColor : 'transparent'
+            fontWeight : '500',
+            backgroundColor : 'transparent',
+            marginTop : 5
         },
         bio : {
-            fontSize : 15,
             color : 'black',
+            fontWeight : '300',
             backgroundColor : 'transparent'
         },
         label : {
-            fontSize : 13,
+            fontSize : 12,
             color : 'dimgrey',
+            fontWeight : '300',
             backgroundColor : 'transparent'
         }
     }
