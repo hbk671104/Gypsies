@@ -24,7 +24,7 @@ export default {
         },
         chunk : {
             alignItems : 'center',
-            width : 60
+            width : 65
         }
     },
     image : {
@@ -49,7 +49,7 @@ export default {
         },
         label : {
             fontSize : 12,
-            color : 'dimgrey',
+            color : 'gray',
             fontWeight : '300',
             backgroundColor : 'transparent'
         }

@@ -43,21 +43,30 @@ class Header extends Component {
                 <View style={styles.container.top}>
                     <Image style={styles.image.avatar} source={{uri : info.profile_picture}} />
                     <Text style={styles.text.title}>{info.username}</Text>
-                    <Text style={styles.text.bio}>{info.bio}</Text>
+                    {
+                        !!info.bio &&
+                        <Text style={styles.text.bio} numberOfLines={1}>{info.bio}</Text>
+                    }
                 </View>
                 {
                     !!info.counts &&
                     <View style={styles.container.bottom}>
                         <TouchableOpacity style={styles.container.chunk} onPress={() => onPostTap()}>
-                            <Text style={styles.text.title}>{info.counts.media}</Text>
+                            <Text style={styles.text.title} numberOfLines={1}>
+                                {info.counts.media}
+                            </Text>
                             <Text style={styles.text.label}>posts</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.container.chunk}>
-                            <Text style={styles.text.title}>{info.counts.followed_by}</Text>
+                            <Text style={styles.text.title} numberOfLines={1}>
+                                {info.counts.followed_by}
+                            </Text>
                             <Text style={styles.text.label}>followers</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.container.chunk}>
-                            <Text style={styles.text.title}>{info.counts.follows}</Text>
+                            <Text style={styles.text.title} numberOfLines={1}>
+                                {info.counts.follows}
+                            </Text>
                             <Text style={styles.text.label}>following</Text>
                         </TouchableOpacity>
                     </View>
