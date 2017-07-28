@@ -4,6 +4,7 @@ import { StackNavigator } from 'react-navigation'
 import Login from 'pages/auth/login'
 import Main from 'pages/main'
 import Map from 'pages/map'
+import Post from 'pages/post'
 
 import styles from './style'
 
@@ -11,7 +12,8 @@ const navigator = initialRouteName => {
     return StackNavigator({
         Login : {screen : Login},
         Main : {screen : Main},
-        Map : {screen : Map}
+        Map : {screen : Map},
+        Post : {screen : Post}
     },{
         initialRouteName,
         navigationOptions : styles

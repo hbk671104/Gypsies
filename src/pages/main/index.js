@@ -5,7 +5,8 @@ import {
     Text,
     Image,
     FlatList,
-    BackHandler
+    BackHandler,
+    TouchableOpacity
 } from 'react-native'
 import { connect } from 'react-redux'
 
@@ -29,20 +30,13 @@ class Main extends Component {
         )
     })
 
-    static defaultProps = {
-        numberOfColumns : 3
-    }
-
-    static propTypes = {
-        numberOfColumns : PropTypes.number
-    }
-
     constructor(props) {
         super(props)
         this.state = {
             itemEdge : 0,
             isRefresh : false
         }
+        this.numberOfColumns = 3
     }
 
     componentWillMount() {
@@ -72,10 +66,17 @@ class Main extends Component {
         })
     }
 
+    handleItemTap = item => {
+        const { navigate } = this.props.navigation
+        navigate('Post', {item})
+    }
+
     renderItem = ({ item }) => (
-        <Image style={{height : this.state.itemEdge, width : this.state.itemEdge}}
-            source={{uri: item.images.low_resolution.url}}
-        />
+        <TouchableOpacity onPress={() => this.handleItemTap(item)}>
+            <Image style={{height : this.state.itemEdge, width : this.state.itemEdge}}
+                source={{uri: item.images.low_resolution.url}}
+            />
+        </TouchableOpacity>
     )
 
     renderHeader = () => (
@@ -83,7 +84,6 @@ class Main extends Component {
     )
 
     render() {
-        const { numberOfColumns } = this.props
         return (
             <View style={styles.container}>
                 {
@@ -93,7 +93,7 @@ class Main extends Component {
                     <FlatList
                         ref={ref => this.mainFlatlist = ref}
                         onLayout={({ nativeEvent : { layout }}) => {
-                            this.setState({itemEdge : layout.width / numberOfColumns})
+                            this.setState({itemEdge : layout.width / this.numberOfColumns})
                         }}
                         data={this.props.recent}
                         renderItem={this.renderItem}
@@ -101,7 +101,7 @@ class Main extends Component {
                         onRefresh={this.handleRefresh}
                         refreshing={this.props.loading}
                         showsVerticalScrollIndicator={false}
-                        numColumns={numberOfColumns}
+                        numColumns={this.numberOfColumns}
                         keyExtractor={item => item.id}
                     />
                 }
