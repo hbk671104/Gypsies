@@ -69,7 +69,7 @@ class Header extends Component {
                 <Image
                     style={styles.container.background}
                     source={{uri : info.profile_picture}}
-                    blurRadius={5}
+                    blurRadius={2}
                 />
                 <View
                     style={[styles.container.background, styles.container.backgroundCover]}
