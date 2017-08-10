@@ -11,6 +11,10 @@ export default {
             bottom: 0,
             right: 0
         },
+        backgroundCover : {
+            backgroundColor : 'white',
+            opacity : 0.5
+        },
         content : {
             alignItems : 'center',
         },
@@ -49,7 +53,7 @@ export default {
         },
         label : {
             fontSize : 12,
-            color : 'gray',
+            color : 'darkslategrey',
             fontWeight : '300',
             backgroundColor : 'transparent'
         }

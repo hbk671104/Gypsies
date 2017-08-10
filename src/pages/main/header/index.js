@@ -4,14 +4,14 @@ import {
     View,
     Text,
     Image,
-    findNodeHandle,
     TouchableOpacity
 } from 'react-native'
-import { BlurView, VibrancyView } from 'react-native-blur'
 import { connect } from 'react-redux'
 
+// Actions
 import { requestUserInfo } from 'actions/user'
 
+// Style
 import styles from './style'
 
 class Header extends Component {
@@ -19,21 +19,8 @@ class Header extends Component {
         onPostTap : PropTypes.func.isRequired
     }
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            viewRef : null
-        }
-    }
-
     componentDidMount() {
         this.props.dispatch(requestUserInfo())
-    }
-
-    imageLoaded = () => {
-        this.setState({
-            viewRef: findNodeHandle(this.backgroundImage)
-        })
     }
 
     renderContent = info => {
@@ -80,16 +67,12 @@ class Header extends Component {
         return (
             <View style={styles.container.overall}>
                 <Image
-                    ref={img => this.backgroundImage = img}
+                    style={styles.container.background}
                     source={{uri : info.profile_picture}}
-                    style={styles.container.background}
-                    onLoadEnd={this.imageLoaded}
+                    blurRadius={5}
                 />
-                <BlurView
-                    style={styles.container.background}
-                    viewRef={this.state.viewRef}
-                    blurType='xlight'
-                    blurAmount={10}
+                <View
+                    style={[styles.container.background, styles.container.backgroundCover]}
                 />
                 {this.renderContent(info)}
             </View>
