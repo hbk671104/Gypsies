@@ -9,12 +9,16 @@ import {
     TouchableOpacity
 } from 'react-native'
 import { connect } from 'react-redux'
+import { screenWidth } from 'utils'
 
+// Component
 import IconButton from 'components/iconButton'
 import LoadingView from 'components/loading'
 
+// Action
 import { requestUserMedia } from 'actions/user'
 
+// Local shit
 import Header from './header'
 import styles from './style'
 
@@ -33,10 +37,10 @@ class Main extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            itemEdge : 0,
-            isRefresh : false
+            fromRefresh : false
         }
         this.numberOfColumns = 3
+        this.itemEdge = screenWidth / this.numberOfColumns
     }
 
     componentWillMount() {
@@ -61,7 +65,7 @@ class Main extends Component {
     }
 
     handleRefresh = () => {
-        this.setState({isRefresh : true}, () => {
+        this.setState({fromRefresh : true}, () => {
             this.props.dispatch(requestUserMedia())
         })
     }
@@ -73,28 +77,23 @@ class Main extends Component {
 
     renderItem = ({ item }) => (
         <TouchableOpacity onPress={() => this.handleItemTap(item)}>
-            <Image style={{height : this.state.itemEdge, width : this.state.itemEdge}}
+            <Image style={{height : this.itemEdge, width : this.itemEdge}}
                 source={{uri: item.images.low_resolution.url}}
             />
         </TouchableOpacity>
     )
 
-    renderHeader = () => (
-        <Header onPostTap={this.handlePostTap} />
-    )
+    renderHeader = () => <Header onPostTap={this.handlePostTap} />
 
     render() {
         return (
             <View style={styles.container}>
                 {
-                    this.props.loading && !this.state.isRefresh ?
+                    this.props.loading && !this.state.fromRefresh ?
                     <LoadingView />
                     :
                     <FlatList
                         ref={ref => this.mainFlatlist = ref}
-                        onLayout={({ nativeEvent : { layout }}) => {
-                            this.setState({itemEdge : layout.width / this.numberOfColumns})
-                        }}
                         data={this.props.recent}
                         renderItem={this.renderItem}
                         ListHeaderComponent={this.renderHeader}

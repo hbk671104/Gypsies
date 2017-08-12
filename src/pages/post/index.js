@@ -7,6 +7,7 @@ import {
 } from 'react-native'
 import { properImageSize } from 'utils'
 import ListItem from 'components/listItem'
+import Likes from 'components/likes'
 import styles from './style'
 
 export default class Post extends Component {
@@ -14,23 +15,11 @@ export default class Post extends Component {
         title : 'Post'
     }
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            containerWidth : 0
-        }
-    }
-
     render() {
         const { item } = this.props.navigation.state.params
-        console.log(item);
-        const imageStyle = properImageSize(this.state.containerWidth, item.images.standard_resolution)
+        const imageStyle = properImageSize(item.images.standard_resolution)
         return (
-            <View style={styles.container}
-                onLayout={({ nativeEvent : { layout }}) => {
-                    this.setState({containerWidth : layout.width})
-                }}
-            >
+            <View style={styles.container}>
                 <ScrollView>
                     <ListItem
                         imageUrl={item.user.profile_picture}
@@ -39,6 +28,9 @@ export default class Post extends Component {
                     />
                     <Image style={imageStyle}
                         source={{uri : item.images.standard_resolution.url}}
+                    />
+                    <Likes
+                        count={item.likes.count}
                     />
                 </ScrollView>
             </View>

@@ -7,12 +7,16 @@ const listItem = props => (
         <Image style={styles.image} source={{ uri : props.imageUrl }} />
         <View style={styles.text.container}>
             <TouchableOpacity onPress={() => props.onTitleTap()}>
-                <Text style={styles.text.title}>{props.title}</Text>
+                <Text style={styles.text.title} numberOfLines={1}>
+                    {props.title}
+                </Text>
             </TouchableOpacity>
             {
                 !!props.subTitle &&　
                 <TouchableOpacity onPress={() => props.onSubtitleTap()}>
-                    <Text style={styles.text.subTitle}>{props.subTitle}</Text>
+                    <Text style={styles.text.subTitle} numberOfLines={1}>
+                        {props.subTitle}
+                    </Text>
                 </TouchableOpacity>
             }
         </View>
@@ -47,6 +51,7 @@ const styles = {
     },
     text : {
         container : {
+            flex : 1,
             marginLeft : 10
         },
         title : {
