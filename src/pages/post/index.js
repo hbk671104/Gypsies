@@ -7,7 +7,7 @@ import {
 } from 'react-native'
 import { properImageSize } from 'utils'
 import ListItem from 'components/listItem'
-import Likes from 'components/likes'
+import Bottom from './bottom'
 import styles from './style'
 
 export default class Post extends Component {
@@ -29,8 +29,8 @@ export default class Post extends Component {
                     <Image style={imageStyle}
                         source={{uri : item.images.standard_resolution.url}}
                     />
-                    <Likes
-                        count={item.likes.count}
+                    <Bottom
+                        likeCount={item.likes.count}
                     />
                 </ScrollView>
             </View>
