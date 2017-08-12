@@ -4,15 +4,20 @@ export default {
     },
     bottom : {
         container : {
-            flexDirection : 'row',
-            alignItems : 'center',
             backgroundColor : 'white',
             paddingVertical : 10,
             paddingHorizontal : 15
         },
         text : {
-            color : 'black',
-            fontWeight : '500'
+            text : {
+                color : 'black',
+                fontWeight : '500',
+                lineHeight : 20
+            },
+            textLabel : {
+                color : 'black',
+                fontWeight : '300'
+            }
         }
     }
 }

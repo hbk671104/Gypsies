@@ -17,6 +17,7 @@ export default class Post extends Component {
 
     render() {
         const { item } = this.props.navigation.state.params
+        console.log(item);
         const imageStyle = properImageSize(item.images.standard_resolution)
         return (
             <View style={styles.container}>
@@ -31,6 +32,8 @@ export default class Post extends Component {
                     />
                     <Bottom
                         likeCount={item.likes.count}
+                        userName={item.user.username}
+                        caption={item.caption.text}
                     />
                 </ScrollView>
             </View>
