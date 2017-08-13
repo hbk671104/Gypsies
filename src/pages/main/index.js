@@ -5,7 +5,6 @@ import {
     Text,
     Image,
     FlatList,
-    BackHandler,
     TouchableOpacity
 } from 'react-native'
 import { connect } from 'react-redux'
@@ -43,21 +42,8 @@ class Main extends Component {
         this.itemEdge = screenWidth / this.numberOfColumns
     }
 
-    componentWillMount() {
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)
-    }
-
     componentDidMount() {
         this.props.dispatch(requestUserMedia())
-    }
-
-    componentWillUnmount() {
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress)
-    }
-
-    handleBackPress = () => {
-        // Disable nav back
-        return true
     }
 
     handlePostTap = () => {
@@ -79,6 +65,9 @@ class Main extends Component {
         <TouchableOpacity onPress={() => this.handleItemTap(item)}>
             <Image style={{height : this.itemEdge, width : this.itemEdge}}
                 source={{uri: item.images.low_resolution.url}}
+                onLoad={() => {
+                    Image.prefetch(item.images.standard_resolution.url)
+                }}
             />
         </TouchableOpacity>
     )
