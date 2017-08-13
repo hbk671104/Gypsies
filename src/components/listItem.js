@@ -4,13 +4,13 @@ import { View, Image, Text, TouchableOpacity } from 'react-native'
 
 const listItem = props => (
     <View style={styles.container}>
-        <Image style={styles.image} source={{ uri : props.imageUrl }} />
+        <TouchableOpacity onPress={() => props.onAvatarTap()}>
+            <Image style={styles.image} source={{ uri : props.imageUrl }} />
+        </TouchableOpacity>
         <View style={styles.text.container}>
-            <TouchableOpacity onPress={() => props.onTitleTap()}>
-                <Text style={styles.text.title} numberOfLines={1}>
-                    {props.title}
-                </Text>
-            </TouchableOpacity>
+            <Text style={styles.text.title} numberOfLines={1}>
+                {props.title}
+            </Text>
             {
                 !!props.subTitle &&　
                 <TouchableOpacity onPress={() => props.onSubtitleTap()}>
@@ -24,7 +24,7 @@ const listItem = props => (
 )
 
 listItem.defaultProps = {
-    onTitleTap : () => {},
+    onAvatarTap : () => {},
     onSubtitleTap : () => {}
 }
 
@@ -32,7 +32,7 @@ listItem.propTypes = {
     imageUrl : PropTypes.string.isRequired,
     title : PropTypes.string.isRequired,
     subTitle : PropTypes.string,
-    onTitleTap : PropTypes.func,
+    onAvatarTap : PropTypes.func,
     onSubtitleTap: PropTypes.func
 }
 
@@ -61,7 +61,8 @@ const styles = {
         subTitle : {
             fontSize : 12,
             color : 'darkslategrey',
-            fontWeight : '300'
+            fontWeight : '300',
+            marginTop : 3
         }
     }
 }

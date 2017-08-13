@@ -15,9 +15,16 @@ export default class Post extends Component {
         title : 'Post'
     }
 
+    handleLikeTap = () => {
+
+    }
+
+    handleCommentTap = () => {
+
+    }
+
     render() {
         const { item } = this.props.navigation.state.params
-        console.log(item);
         const imageStyle = properImageSize(item.images.standard_resolution)
         return (
             <View style={styles.container}>
@@ -34,6 +41,11 @@ export default class Post extends Component {
                         likeCount={item.likes.count}
                         userName={item.user.username}
                         caption={item.caption.text}
+                        tags={item.tags}
+                        commentCount={item.comments.count}
+                        createdTime={item.created_time}
+                        onLikeTap={this.handleLikeTap}
+                        onCommentTap={this.handleCommentTap}
                     />
                 </ScrollView>
             </View>
