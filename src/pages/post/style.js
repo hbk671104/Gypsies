@@ -21,15 +21,15 @@ export default {
                 fontWeight : '300'
             },
             caption : {
-                color : 'black',
-                fontWeight : '300',
-                lineHeight : 20
+                fontWeight : '300'
             },
             highlightCaption : {
                 color : 'darkslateblue'
             },
-            captionLabel : {
-                fontWeight : '500'
+            userLabel : {
+                color : 'black',
+                fontWeight : '500',
+                lineHeight : 20
             },
             comment : {
                 color : 'grey',

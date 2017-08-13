@@ -21,7 +21,7 @@ const bottom = props => (
         {
             !!props.caption &&
             <View style={styles.bottom.contentContainer}>
-                <Text style={styles.bottom.text.captionLabel}>
+                <Text style={styles.bottom.text.userLabel}>
                     {props.userName}
                     <Highlighter style={styles.bottom.text.caption}
                         highlightStyle={styles.bottom.text.highlightCaption}
