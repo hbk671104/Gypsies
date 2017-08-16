@@ -3332,9 +3332,9 @@ react-native-highlight-words@^1.0.0:
   dependencies:
     highlight-words-core "^1.0.3"
 
-react-native-maps@^0.16.0:
-  version "0.16.0"
-  resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.16.0.tgz#e5fada6ef1e3304e94c509fa7b4a43e88152c24f"
+react-native-maps@^0.16.1:
+  version "0.16.1"
+  resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.16.1.tgz#1b143a1d425a72c76e0b189877bf398b4fefa780"
 
 react-native-spinkit@^1.1.1:
   version "1.1.1"
