@@ -24,7 +24,6 @@ import styles from './style'
 class Main extends Component {
     static navigationOptions = ({ navigation }) => ({
         title : 'Gypsies',
-        headerLeft : null, // Disable back button
         headerRight : (
             <IconButton name='map-o'
                 iconStyle={styles.iconButton}
