@@ -26,61 +26,9 @@ export const extractAccessToken = url => {
     return (dispatch) => {
         const params = getUrlParams(url)
         if (params && params.access_token) {
-            dispatch(requestAccessTokenSucceeded(params.access_token))
-            return dispatch(cacheAccessToken(params.access_token))
+            return dispatch(requestAccessTokenSucceeded(params.access_token))
         } else {
             return dispatch(requestAccessTokenFailed())
-        }
-    }
-}
-
-export const cacheAccessTokenSucceeded = () => {
-    return {
-        type: AuthActionTypes.CACHE_ACCESS_TOKEN_SUCCEEDED
-    }
-}
-
-export const cacheAccessTokenFailed = () => {
-    return {
-        type: AuthActionTypes.CACHE_ACCESS_TOKEN_FAILED
-    }
-}
-
-export const cacheAccessToken = token => {
-    return async (dispatch) => {
-        try {
-            await AsyncStorage.setItem('access_token', token)
-            return dispatch(cacheAccessTokenSucceeded())
-        } catch (e) {
-            return dispatch(cacheAccessTokenFailed())
-        }
-    }
-}
-
-export const getAccessTokenSucceeded = data => {
-    return {
-        type: AuthActionTypes.GET_ACCESS_TOKEN_SUCCEEDED,
-        data
-    }
-}
-
-export const getAccessTokenFailed = () => {
-    return {
-        type: AuthActionTypes.GET_ACCESS_TOKEN_FAILED
-    }
-}
-
-export const getAccessToken = () => {
-    return async (dispatch) => {
-        try {
-            const token = await AsyncStorage.getItem('access_token')
-            if (token) {
-                return dispatch(getAccessTokenSucceeded(token))
-            } else {
-                return dispatch(getAccessTokenFailed())
-            }
-        } catch (e) {
-            return dispatch(getAccessTokenFailed())
         }
     }
 }
