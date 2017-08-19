@@ -2,7 +2,7 @@ import gypStore from 'store'
 import queryString from 'query-string'
 
 const fetchWrap = async (request, params = {}) => {
-    const access_token = gypStore.getState().auth.access_token
+    const access_token = gypStore.getState().auth.accessToken
     const queryParam = {...params, access_token}
     let requestURL = request.url
     let requestInit = { method : 'GET' }

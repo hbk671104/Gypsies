@@ -3,7 +3,7 @@ import * as AuthActionTypes from 'actiontypes/auth'
 
 const initialState = {
     loading : false,
-    access_token : ''
+    accessToken : ''
 }
 
 const auth = (state = initialState, action) => {
@@ -12,7 +12,7 @@ const auth = (state = initialState, action) => {
         case AuthActionTypes.REQUESTING_ACCESS_TOKEN:
             return immutableState.set('loading', action.data).toJS()
         case AuthActionTypes.REQUEST_ACCESS_TOKEN_SUCCEEDED:
-            return immutableState.set('access_token', action.data).toJS()
+            return immutableState.set('accessToken', action.data).toJS()
         case AuthActionTypes.REQUEST_ACCESS_TOKEN_FAILED:
         default:
             return state

@@ -21,7 +21,7 @@ export default class Root extends Component {
     }
 
     handleOnRehydrated = () => {
-        const accessToken = gypStore.getState().auth.access_token
+        const { accessToken } = gypStore.getState().auth
         if (accessToken) {
             this.setState({initialRouteName: 'Main'})
         }
