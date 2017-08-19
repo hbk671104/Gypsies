@@ -8,58 +8,52 @@ import styles from './style'
 const bottom = props => (
     <View style={styles.bottom.container}>
         {
-            props.likeCount !== 0 &&
+            props.item.likes.count !== 0 &&
             <TouchableOpacity onPress={() => props.onLikeTap()}>
                 <Text style={styles.bottom.text.likeCount} numberOfLines={1}>
-                    {props.likeCount}
+                    {props.item.likes.count}
                     <Text style={styles.bottom.text.likeLabel}>
-                        {` Like${props.likeCount > 1 && 's'}`}
+                        {` Like${props.item.likes.count > 1 && 's'}`}
                     </Text>
                 </Text>
             </TouchableOpacity>
         }
         {
-            !!props.caption &&
+            !!props.item.caption.text &&
             <View style={styles.bottom.contentContainer}>
                 <Text style={styles.bottom.text.userLabel}>
-                    {props.userName}
+                    {props.item.user.username}
                     <Highlighter style={styles.bottom.text.caption}
                         highlightStyle={styles.bottom.text.highlightCaption}
-                        searchWords={props.tags.map(tag => `#${tag}`)}
-                        textToHighlight={` ${props.caption}`}
+                        searchWords={props.item.tags.map(tag => `#${tag}`)}
+                        textToHighlight={` ${props.item.caption.text}`}
                     />
                 </Text>
             </View>
         }
         {
-            props.commentCount !== 0 &&
+            props.item.comments.count !== 0 &&
             <TouchableOpacity style={styles.bottom.contentContainer} onPress={() => props.onCommentTap()}>
                 <Text style={styles.bottom.text.comment} numberOfLines={1}>
-                    {`View ${props.commentCount > 1 ? `all ${props.commentCount} comments` : `1 comment`}`}
+                    {`View ${props.item.comments.count > 1 ? `all ${props.item.comments.count} comments` : `1 comment`}`}
                 </Text>
             </TouchableOpacity>
         }
         <View style={styles.bottom.contentContainer}>
             <Text style={styles.bottom.text.time} numberOfLines={1}>
-                {moment.unix(props.createdTime).format('MMMM D, YYYY')}
+                {moment.unix(props.item.created_time).format('MMMM D, YYYY')}
             </Text>
         </View>
     </View>
 )
 
 bottom.defaultProps = {
-    tags : [],
     onLikeTap : () => {},
     onCommentTap : () => {}
 }
 
 bottom.propTypes = {
-    likeCount : PropTypes.number.isRequired,
-    userName : PropTypes.string.isRequired,
-    caption : PropTypes.string.isRequired,
-    tags : PropTypes.array,
-    commentCount : PropTypes.number.isRequired,
-    createdTime : PropTypes.string.isRequired,
+    item : PropTypes.object.isRequired,
     onLikeTap : PropTypes.func,
     onCommentTap : PropTypes.func
 }

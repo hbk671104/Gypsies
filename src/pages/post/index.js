@@ -38,12 +38,7 @@ export default class Post extends Component {
                         source={{uri : item.images.standard_resolution.url}}
                     />
                     <Bottom
-                        likeCount={item.likes.count}
-                        userName={item.user.username}
-                        caption={item.caption.text}
-                        tags={item.tags}
-                        commentCount={item.comments.count}
-                        createdTime={item.created_time}
+                        item={item}
                         onLikeTap={this.handleLikeTap}
                         onCommentTap={this.handleCommentTap}
                     />
