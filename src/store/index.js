@@ -1,7 +1,8 @@
+import { AsyncStorage } from 'react-native'
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import logger from 'redux-logger'
-import { autoRehydrate } from 'redux-persist'
+import { autoRehydrate, persistStore } from 'redux-persist'
 import rootReducer from 'reducers'
 
 const store = createStore(
@@ -11,5 +12,12 @@ const store = createStore(
         autoRehydrate()
     )
 )
+
+export const persist = onRehydratedCallback => {
+    persistStore(store, {
+        whitelist : ['auth'],
+        storage : AsyncStorage
+    }, onRehydratedCallback)
+}
 
 export default store

@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
-import { AsyncStorage } from 'react-native'
 import { Provider } from 'react-redux'
-import { persistStore } from 'redux-persist'
 import SplashScreen from 'react-native-splash-screen'
 
 // Store
-import gypStore from 'store'
+import gypStore, { persist } from 'store'
 
 // Navigator
 import navigator from 'navigator'
@@ -17,12 +15,9 @@ export default class Root extends Component {
             initialRouteName : 'Login'
         }
     }
-    
+
     componentDidMount() {
-        persistStore(gypStore, {
-            whitelist : ['auth'],
-            storage : AsyncStorage
-        }, this.handleOnRehydrated)
+        persist(this.handleOnRehydrated)
     }
 
     handleOnRehydrated = () => {
