@@ -16,7 +16,7 @@ class Login extends Component {
         title : 'Welcome'
     }
 
-    _handleAccessToken = async (url) => {
+    handleAccessToken = async (url) => {
         const res = await this.props.dispatch(AuthActions.extractAccessToken(url))
         if (res.type === AuthActions.requestAccessTokenSucceeded().type) {
             this.props.navigation.dispatch(NavigationActions.reset({
@@ -28,10 +28,10 @@ class Login extends Component {
         }
     }
 
-    _onNavStateChange = props => {
+    onNavStateChange = props => {
         this.props.dispatch(AuthActions.requestingAccessToken(props.loading))
         if (!props.loading) {
-            this._handleAccessToken(props.url)
+            this.handleAccessToken(props.url)
         }
     }
 
@@ -40,7 +40,7 @@ class Login extends Component {
             <View style={styles.container}>
                 <WebView style={styles.webview}
                     source={{uri : oAuth}}
-                    onNavigationStateChange={this._onNavStateChange}
+                    onNavigationStateChange={this.onNavStateChange}
                 />
                 {
                     this.props.loading &&
