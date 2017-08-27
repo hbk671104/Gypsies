@@ -51,6 +51,7 @@ class Map extends Component {
         return (
             <MapView style={styles.container}
                 showsUserLocation
+                loadingEnabled
                 region={this.state.region}
             >
                 {recent.map(item => this.renderMarker(item))}
