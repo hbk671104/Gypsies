@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 import {
     View,
     Text,
-    Image
+    Image,
+    FlatList
 } from 'react-native'
 import { connect } from 'react-redux'
 import MapView from 'react-native-maps'
 import ImageMarker from 'components/imageMarker'
+import InfoBottom from 'pages/post/bottom'
 import styles from './style'
 
 class Map extends Component {
@@ -46,16 +48,38 @@ class Map extends Component {
         </MapView.Marker>
     )
 
+    renderItem = ({ item }) => (
+        <InfoBottom
+            style={styles.bottom.item}
+            liteMode
+            item={item}
+        />
+    )
+
     render() {
         const { recent } = this.props
         return (
-            <MapView style={styles.container}
-                showsUserLocation
-                loadingEnabled
-                region={this.state.region}
-            >
-                {recent.map(item => this.renderMarker(item))}
-            </MapView>
+            <View style={styles.container}>
+                <MapView style={styles.map}
+                    showsUserLocation
+                    loadingEnabled
+                    region={this.state.region}
+                >
+                    {recent.map(item => this.renderMarker(item))}
+                </MapView>
+                <View style={styles.bottom.container}>
+                    <FlatList
+                        contentContainerStyle={styles.bottom.list}
+                        horizontal
+                        pagingEnabled
+                        ref={ref => this.maplist = ref}
+                        data={this.props.recent}
+                        renderItem={this.renderItem}
+                        showsHorizontalScrollIndicator={false}
+                        keyExtractor={item => item.id}
+                    />
+                </View>
+            </View>
         )
     }
 }

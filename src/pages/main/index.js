@@ -46,7 +46,7 @@ class Main extends Component {
     }
 
     handlePostTap = () => {
-        this.mainFlatlist.scrollToIndex({index : 0})
+        this.homeList.scrollToIndex({index : 0})
     }
 
     handleRefresh = () => {
@@ -82,7 +82,7 @@ class Main extends Component {
                     <LoadingView />
                     :
                     <FlatList
-                        ref={ref => this.mainFlatlist = ref}
+                        ref={ref => this.homeList = ref}
                         data={this.props.recent}
                         renderItem={this.renderItem}
                         ListHeaderComponent={this.renderHeader}

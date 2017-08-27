@@ -6,7 +6,7 @@ import moment from 'moment'
 import styles from './style'
 
 const bottom = props => (
-    <View style={styles.bottom.container}>
+    <View style={[styles.bottom.container, props.style]}>
         {
             props.item.likes.count !== 0 &&
             <TouchableOpacity onPress={() => props.onLikeTap()}>
@@ -21,7 +21,9 @@ const bottom = props => (
         {
             !!props.item.caption.text &&
             <View style={styles.bottom.contentContainer}>
-                <Text style={styles.bottom.text.userLabel}>
+                <Text style={styles.bottom.text.userLabel}
+                    {...props.liteMode ? {numberOfLines : 2} : {}}
+                >
                     {props.item.user.username}
                     <Highlighter style={styles.bottom.text.caption}
                         highlightStyle={styles.bottom.text.highlightCaption}
@@ -32,6 +34,7 @@ const bottom = props => (
             </View>
         }
         {
+            !props.liteMode &&
             props.item.comments.count !== 0 &&
             <TouchableOpacity style={styles.bottom.contentContainer} onPress={() => props.onCommentTap()}>
                 <Text style={styles.bottom.text.comment} numberOfLines={1}>
@@ -49,13 +52,17 @@ const bottom = props => (
 
 bottom.defaultProps = {
     onLikeTap : () => {},
-    onCommentTap : () => {}
+    onCommentTap : () => {},
+    liteMode : false,
+    style : {}
 }
 
 bottom.propTypes = {
     item : PropTypes.object.isRequired,
     onLikeTap : PropTypes.func,
-    onCommentTap : PropTypes.func
+    onCommentTap : PropTypes.func,
+    liteMode : PropTypes.bool,
+    style : PropTypes.object
 }
 
 export default bottom
