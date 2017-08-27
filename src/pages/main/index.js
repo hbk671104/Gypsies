@@ -66,7 +66,6 @@ class Main extends Component {
                 source={{uri: item.images.low_resolution.url}}
                 onLoad={() => {
                     Image.prefetch(item.images.standard_resolution.url)
-                    Image.prefetch(item.images.thumbnail.url)
                 }}
             />
         </TouchableOpacity>

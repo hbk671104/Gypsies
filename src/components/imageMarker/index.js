@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 import styles from './style'
 
 const imageMarker = props => (
-    <View>
-        <Image style={styles.image} source={{uri : props.image.thumbnail.url}} />
-    </View>
+    <Image style={styles.image}
+        source={{uri : props.image.standard_resolution.url}}
+    />
 )
 
 imageMarker.propTypes = {

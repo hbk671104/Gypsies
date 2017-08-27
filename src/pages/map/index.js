@@ -36,15 +36,16 @@ class Map extends Component {
         return null
     }
 
-    renderMarker = item => (
+    renderMarker = (item, index) => (
         <MapView.Marker key={item.id}
             coordinate={{
                 latitude : item.location.latitude,
                 longitude : item.location.longitude
             }}
-            title={item.location.name}
         >
-            <ImageMarker image={item.images} />
+            <MapView.Callout>
+                <ImageMarker image={item.images} />
+            </MapView.Callout>
         </MapView.Marker>
     )
 
@@ -65,7 +66,7 @@ class Map extends Component {
                     loadingEnabled
                     region={this.state.region}
                 >
-                    {recent.map(item => this.renderMarker(item))}
+                    {recent.map(this.renderMarker)}
                 </MapView>
                 <View style={styles.bottom.container}>
                     <FlatList
