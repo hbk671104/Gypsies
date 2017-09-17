@@ -7,8 +7,12 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import MapView from 'react-native-maps'
+import Swiper from 'react-native-swiper'
+
+// Component
 import ImageMarker from 'components/imageMarker'
 import InfoBottom from 'pages/post/bottom'
+
 import styles from './style'
 
 class Map extends Component {
@@ -18,9 +22,7 @@ class Map extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {
-            region : this.parseInitialRegion(props.recent)
-        }
+        this.markers = []
     }
 
     parseInitialRegion = recent => {
@@ -29,19 +31,35 @@ class Map extends Component {
             return {
                 latitude : first.location.latitude,
                 longitude : first.location.longitude,
-                latitudeDelta : 0.0922,
-                longitudeDelta : 0.0421
+                latitudeDelta : 0.2,
+                longitudeDelta : 0.2
             }
         }
         return null
     }
 
+    handleSwiperIndexChange = index => {
+        const item = this.props.recent[index]
+        this.mapView.animateToCoordinate({
+            latitude : item.location.latitude,
+            longitude : item.location.longitude
+        }, 500)
+        // this.markers[index].showCallout()
+    }
+
+    handleMarkerPress = coordinate => {
+        
+    }
+
     renderMarker = (item, index) => (
-        <MapView.Marker key={item.id}
+        <MapView.Marker
+            ref={ref => this.markers[index] = ref}
+            key={item.id}
             coordinate={{
                 latitude : item.location.latitude,
                 longitude : item.location.longitude
             }}
+            onPress={this.handleMarkerPress}
         >
             <MapView.Callout>
                 <ImageMarker image={item.images} />
@@ -49,36 +67,39 @@ class Map extends Component {
         </MapView.Marker>
     )
 
-    renderItem = ({ item }) => (
-        <InfoBottom
-            style={styles.bottom.item}
-            liteMode
-            item={item}
-        />
+    renderItem = item => (
+        <View key={item.id} style={styles.bottom.item.container}>
+            <InfoBottom
+                style={styles.bottom.item.item}
+                liteMode
+                item={item}
+            />
+        </View>
     )
 
     render() {
         const { recent } = this.props
         return (
             <View style={styles.container}>
-                <MapView style={styles.map}
+                <MapView
+                    ref={ref => this.mapView = ref}
+                    style={styles.map}
                     showsUserLocation
-                    loadingEnabled
-                    region={this.state.region}
+                    initialRegion={this.parseInitialRegion(recent)}
                 >
                     {recent.map(this.renderMarker)}
                 </MapView>
                 <View style={styles.bottom.container}>
-                    <FlatList
-                        contentContainerStyle={styles.bottom.list}
-                        horizontal
-                        pagingEnabled
-                        ref={ref => this.maplist = ref}
-                        data={this.props.recent}
-                        renderItem={this.renderItem}
-                        showsHorizontalScrollIndicator={false}
-                        keyExtractor={item => item.id}
-                    />
+                    <Swiper
+                        ref={ref => this.swiper = ref}
+                        loop={false}
+                        showsPagination={false}
+                        onIndexChanged={this.handleSwiperIndexChange}
+                    >
+                        {
+                            recent.map(item => this.renderItem(item))
+                        }
+                    </Swiper>
                 </View>
             </View>
         )

@@ -11,15 +11,18 @@ export default {
     },
     bottom : {
         container : {
-            padding : 15
-        },
-        list : {
-            alignItems : 'flex-end'
+            height : 120
         },
         item : {
-            width : screenWidth - 30 - 20,
-            marginHorizontal : 10,
-            borderRadius : 5
+            container : {
+                flex : 1,
+                justifyContent : 'flex-end'
+            },
+            item : {
+                marginHorizontal : 15,
+                marginBottom : 20,
+                borderRadius : 5
+            }
         }
     }
 }
