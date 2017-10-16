@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { View, Text, TouchableOpacity } from 'react-native'
-import Highlighter from 'react-native-highlight-words'
 import moment from 'moment'
 import styles from './style'
 
@@ -21,15 +20,11 @@ const bottom = props => (
         {
             !!props.item.caption.text &&
             <View style={styles.bottom.contentContainer}>
-                <Text style={styles.bottom.text.userLabel}
-                    {...props.liteMode ? {numberOfLines : 2} : {}}
-                >
+                <Text style={styles.bottom.text.userLabel} {...props.liteMode ? {numberOfLines : 2} : {}}>
                     {props.item.user.username}
-                    <Highlighter style={styles.bottom.text.caption}
-                        highlightStyle={styles.bottom.text.highlightCaption}
-                        searchWords={props.item.tags.map(tag => `#${tag}`)}
-                        textToHighlight={` ${props.item.caption.text}`}
-                    />
+                    <Text style={styles.bottom.text.caption}>
+                        {` ${props.item.caption.text}`}
+                    </Text>
                 </Text>
             </View>
         }

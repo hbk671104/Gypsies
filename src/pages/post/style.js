@@ -23,9 +23,6 @@ export default {
             caption : {
                 fontWeight : '300'
             },
-            highlightCaption : {
-                color : 'darkslateblue'
-            },
             userLabel : {
                 color : 'black',
                 fontWeight : '500',
